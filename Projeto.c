@@ -1,13 +1,14 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
-#include <string.h>
+#include <stdio.h>
 #include <ctype.h>
+#include <string.h>
+#include <stdlib.h>
 
 #define MAXIMO_USERS 1000
 int totalUsuarios = 0;
 
-typedef struct tUsuario {
+typedef struct tUsuario
+{
     int id;
     char nomeCompleto[100];
     char email[100];
@@ -20,7 +21,8 @@ typedef struct tUsuario {
 Usuario users[MAXIMO_USERS];
 Usuario usersBackup[MAXIMO_USERS];
 
-void abreMenu(){
+void abreMenu()
+{
     printf("Digite 1 para adicionar usuario\n");
     printf("Digite 4 para buscar usuario por email\n");
     printf("Digite 5 para imprimir todos os usuarios\n");
@@ -29,7 +31,8 @@ void abreMenu(){
     printf("Digite a opção escolhida: ");
 }
 
-void incluiUsuario(){
+void incluiUsuario()
+{
     int id, vacina;
     char nome[100], email[100], sexo[100], endereco[100];
     double altura;
@@ -110,35 +113,50 @@ void incluiUsuario(){
     return 0;
 }
 
-int main()
+int ImprimirUsuarios()
+{
+    for (int i = 0; i < totalUsuarios; i++)
     {
-        char opcao = ' ';
+        printf("\n----------USUARIO %d----------\n", i + 1);
+        printf("id:  %d\n", users[i].id);
+        printf("nome: %s\n", users[i].nomeCompleto);
+        printf("email: %s\n", users[i].email);
+        printf("sexo: %s\n", users[i].sexo);
+        printf("endereco: %s\n", users[i].endereco);
+        printf("altura: %.2lf\n", users[i].altura);
+        printf("status de vacinacao: %d\n\n", users[i].vacina);
+    }
+}
 
-        while (opcao != '0')
+int main()
+{
+    char opcao = ' ';
+
+    while (opcao != '0')
+    {
+        abreMenu();
+        scanf("%c", &opcao);
+        getchar();
+
+        switch (opcao)
         {
-            abreMenu();
-            scanf("%c", &opcao);
-            getchar();
-
-            switch (opcao)
-            {
-            case '1':
-                incluiUsuario();
-                break;
-            // case '4':
-            //     buscaPorEmail();
-            //     break;
-            // case '5':
-            //     imprimirUsuario();
-            //     break;
-            // case '6':
-            //     backUpUsuarios();
-            //     break;
-            case '0':
-                printf('programa fechado');
-            default:
-                printf("Opção invalida");
-                break;
-            }
+        case '1':
+            incluiUsuario();
+            break;
+        // case '4':
+        //     buscaPorEmail();
+        //     break;
+        case '5':
+            imprimirUsuario();
+            break;
+        // case '6':
+        //     backUpUsuarios();
+        //     break;
+        case '0':
+            printf('programa fechado');
+        default:
+            printf("Opção invalida");
+            break;
         }
     }
+}

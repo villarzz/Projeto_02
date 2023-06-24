@@ -146,6 +146,53 @@ int backUpUsuarios()
     return 0;
 }
 
+int buscaPorEmail()
+{
+    char email[100];
+
+    printf("Digite o email do usuario: ");
+    scanf(" %[^\n]", email);
+
+    for (int i = 0; i < totalUsuarios; i++)
+    {
+        if (strcmp(users[i].email, email) == 0)
+        {
+
+            printf("nome: %s\n", users[i].nomeCompleto);
+            printf("email: %s\n", users[i].email);
+            printf("sexo: %s\n", users[i].sexo);
+            printf("endereco: %s\n", users[i].endereco);
+            printf("altura: %.2lf\n", users[i].altura);
+            printf("status de vacinacao: %d\n", users[i].vacina);
+
+            return 0;
+        }
+        else
+        {
+            printf("Usuario nao encontrado\n");
+            return -1;
+        }
+    }
+}
+
+int restaurarDados()
+{
+    for (int i = 0; i < totalUsuarios; i++)
+    {
+        users[i].id = usersBackup[i].id;
+        strcpy(users[i].nomeCompleto, usersBackup[i].nomeCompleto);
+        strcpy(users[i].email, usersBackup[i].email);
+        strcpy(users[i].sexo, usersBackup[i].sexo);
+        strcpy(users[i].endereco, usersBackup[i].endereco);
+        users[i].altura = usersBackup[i].altura;
+        users[i].vacina = usersBackup[i].vacina;
+    }
+
+    printf("Restauracao concluido com sucesso\n");
+
+    return 0;
+}
+
 int main()
 {
     char opcao = ' ';
@@ -161,14 +208,17 @@ int main()
         case '1':
             incluiUsuario();
             break;
-        // case '4':
-        //     buscaPorEmail();
-        //     break;
+        case '4':
+            buscaPorEmail();
+            break;
         case '5':
             imprimirUsuario();
             break;
         case '6':
             backUpUsuarios();
+            break;
+        case '7':
+            restaurarDados();
             break;
         case '0':
             printf('programa fechado');

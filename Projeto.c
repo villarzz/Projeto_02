@@ -113,7 +113,7 @@ void incluiUsuario()
     return 0;
 }
 
-int ImprimirUsuarios()
+int imprimirUsuario()
 {
     for (int i = 0; i < totalUsuarios; i++)
     {
@@ -126,6 +126,24 @@ int ImprimirUsuarios()
         printf("altura: %.2lf\n", users[i].altura);
         printf("status de vacinacao: %d\n\n", users[i].vacina);
     }
+}
+
+int backUpUsuarios()
+{
+    for (int i = 0; i < totalUsuarios; i++)
+    {
+        usersBackup[i].id = users[i].id;
+        strcpy(usersBackup[i].nomeCompleto, users[i].nomeCompleto);
+        strcpy(usersBackup[i].email, users[i].email);
+        strcpy(usersBackup[i].sexo, users[i].sexo);
+        strcpy(usersBackup[i].endereco, users[i].endereco);
+        usersBackup[i].altura = users[i].altura;
+        usersBackup[i].vacina = users[i].vacina;
+    }
+
+    printf("BackUp concluido com sucesso\n");
+
+    return 0;
 }
 
 int main()
@@ -149,9 +167,9 @@ int main()
         case '5':
             imprimirUsuario();
             break;
-        // case '6':
-        //     backUpUsuarios();
-        //     break;
+        case '6':
+            backUpUsuarios();
+            break;
         case '0':
             printf('programa fechado');
         default:
